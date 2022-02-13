@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
   links: string[];
-  constructor() {
-    this.links = ['home', 'signup', 'login', 'dashboard'];
+  isLoggedIn: boolean;
+  constructor(private authService: AuthService) {
+    this.links = ['home', 'signup', 'dashboard'];
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.logChange.subscribe((status) => {
+      this.isLoggedIn = status;
+    });
+  }
+  handleLogout(): void {
+    this.authService.logout();
+  }
 }

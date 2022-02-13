@@ -23,6 +23,26 @@
             >{{ link | titlecase }}</a
           >
         </li>
+        <li>
+          <button
+            class="btn btn-success"
+            aria-current="page"
+            *ngIf="!isLoggedIn"
+            routerLink="/login"
+          >
+            Login
+          </button>
+        </li>
+        <li class="nav-item">
+          <button
+            class="btn btn-danger"
+            aria-current="page"
+            *ngIf="isLoggedIn"
+            (click)="handleLogout()"
+          >
+            Logout
+          </button>
+        </li>
       </ul>
     </div>
   </div>

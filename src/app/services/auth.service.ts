@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
 @Injectable({
@@ -9,7 +9,10 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   isLoggedIn: boolean;
   tokenData: any;
-  constructor(private http: HttpClient) {}
+  logChange: Subject<any>;
+  constructor(private http: HttpClient) {
+    this.logChange = new Subject<any>();
+  }
   isAuth(): boolean {
     return this.isLoggedIn;
   }
@@ -23,6 +26,7 @@ export class AuthService {
         tap((data: any) => {
           this.tokenData = data;
           this.isLoggedIn = true;
+          this.logChange.next(true);
         })
       );
   }
@@ -31,5 +35,8 @@ export class AuthService {
       `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebase.apiKey}`,
       { email: email, password: password, returnSecureToken: true }
     );
+  }
+  logout(): void {
+    return this.logChange.next(false);
   }
 }

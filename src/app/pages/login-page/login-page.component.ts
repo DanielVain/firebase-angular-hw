@@ -19,6 +19,7 @@ export class LoginPageComponent implements OnInit {
         .login(this.login.value.email, this.login.value.password)
         .subscribe(() => {
           this.router.navigate(['dashboard']);
+          this.login.reset();
         });
     }
   }
