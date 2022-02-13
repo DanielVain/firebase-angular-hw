@@ -37,6 +37,8 @@ export class AuthService {
     );
   }
   logout(): void {
+    this.isLoggedIn = false;
+
     return this.logChange.next(false);
   }
 }
