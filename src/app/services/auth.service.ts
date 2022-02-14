@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
 @Injectable({
@@ -38,7 +38,6 @@ export class AuthService {
   }
   logout(): void {
     this.isLoggedIn = false;
-
     return this.logChange.next(false);
   }
 }
