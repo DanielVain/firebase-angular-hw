@@ -9,9 +9,9 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   isLoggedIn: boolean;
   tokenData: any;
-  logChange: Subject<any>;
+  logChange: Subject<boolean>;
   constructor(private http: HttpClient) {
-    this.logChange = new Subject<any>();
+    this.logChange = new Subject<boolean>();
   }
   isAuth(): boolean {
     return this.isLoggedIn;
@@ -38,6 +38,7 @@ export class AuthService {
   }
   logout(): void {
     this.isLoggedIn = false;
+    this.tokenData = undefined;
     return this.logChange.next(false);
   }
 }
