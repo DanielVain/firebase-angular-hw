@@ -39,6 +39,6 @@ export class AuthService {
   logout(): void {
     this.isLoggedIn = false;
     this.tokenData = undefined;
-    return this.logChange.next(false);
+    this.logChange.next(false);
   }
 }
